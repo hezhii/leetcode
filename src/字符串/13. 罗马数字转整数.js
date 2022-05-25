@@ -15,16 +15,15 @@ var romanToInt = function (s) {
     M: 1000,
   }
 
-  let ret = 0,
-    pre = 0
-  for (let c of s) {
-    const num = CODE_MAP[c]
-    ret += num
-    if (pre && num > pre) {
-      ret = ret - pre * 2
-    }
-    pre = num
-  }
+  let ret = 0
 
+  for (let i = 0; i < s.length; i++) {
+    const num = CODE_MAP[s[i]]
+    if (i < s.length - 1 && num < CODE_MAP[s[i + 1]]) {
+      ret -= num
+    } else {
+      ret += num
+    }
+  }
   return ret
 }
