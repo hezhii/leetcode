@@ -7,37 +7,41 @@
  * }
  */
 /**
- * 给定一个二叉树的根节点 root ，返回 它的 中序 遍历 。
- *
  * @param {TreeNode} root
  * @return {number[]}
  */
-var inorderTraversal = function (root) {
+var postorderTraversal = function (root) {
   // 递归
-  // const result = []
+  // const res = []
 
-  // const recursion = root => {
-  //   if (root == null) return
+  // const traverse = root => {
+  //   if (!root) return
 
-  //   recursion(root.left)
-  //   result.push(root.val)
-  //   recursion(root.right)
+  //   traverse(root.left)
+  //   traverse(root.right)
+  //   res.push(root.val)
   // }
 
-  // recursion(root)
+  // traverse(root)
 
-  // return result
+  // return res
 
   // 栈
   const res = []
   const stk = []
+  let pre = null
   while (root || stk.length) {
-    if (root != null) {
+    while (root != null) {
       stk.push(root)
       root = root.left
-    } else {
-      root = stk.pop()
+    }
+    root = stk.pop()
+    if (root.right == null || root.right == pre) {
       res.push(root.val)
+      pre = root
+      root = null
+    } else {
+      stk.push(root)
       root = root.right
     }
   }
